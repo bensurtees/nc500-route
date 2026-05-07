@@ -440,7 +440,7 @@
 
   .stop {
     display: grid;
-    grid-template-columns: 28px 1fr 48px;
+    grid-template-columns: 30px 1fr 48px;
     gap: 10px;
     padding: 16px 0;
     border-bottom: 1px dotted var(--rule);
@@ -451,13 +451,37 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--ink-3);
-    text-align: right;
-    padding-top: 4px;
+    text-align: center;
+    padding-top: 2px;
     font-weight: 500;
     letter-spacing: -0.02em;
   }
   .stop.is-hotel .stop-no,
   .stop.is-fuel .stop-no { color: var(--accent); }
+  .stop-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+  .stop.is-hotel .stop-letter,
+  .stop.is-fuel .stop-letter {
+    background: var(--ink);
+    color: var(--accent);
+  }
+  .stop-num-only {
+    color: var(--ink-3);
+    font-weight: 500;
+  }
 
   .stop-body { min-width: 0; }
 
@@ -1206,10 +1230,27 @@ function fmtCoord(lat, lon) {
 }
 
 function renderDays() {
+  const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const html = DAYS.map((d, i) => {
-    const stopsHtml = d.stops.map((s, idx) => `
+    // Build a coord-keyed map of routeStop letter labels.
+    // Coordinates rounded to 4dp (~10m) for matching.
+    const routeLetters = {};
+    if (d.routeStops) {
+      d.routeStops.forEach((rs, rIdx) => {
+        const key = rs.lat.toFixed(4) + "," + rs.lon.toFixed(4);
+        routeLetters[key] = LETTERS[rIdx] || "";
+      });
+    }
+
+    const stopsHtml = d.stops.map((s, idx) => {
+      const key = s.lat.toFixed(4) + "," + s.lon.toFixed(4);
+      const letter = routeLetters[key];
+      const numLabel = letter
+        ? `<span class="stop-letter">${letter}</span>`
+        : `<span class="stop-num-only">${String(idx + 1).padStart(2, '0')}</span>`;
+      return `
       <div class="stop is-${s.kind}">
-        <div class="stop-no">${String(idx + 1).padStart(2, '0')}</div>
+        <div class="stop-no">${numLabel}</div>
         <div class="stop-body">
           <div class="stop-kicker">${s.kicker}</div>
           <div class="stop-name">${s.name}</div>
@@ -1221,7 +1262,8 @@ function renderDays() {
           <a class="stop-go stop-go-apple" href="${singleNavUrlApple(s.lat, s.lon)}" target="_blank" rel="noopener" aria-label="Navigate to ${s.name} in Apple Maps">A<span>→</span></a>
         </div>
       </div>
-    `).join("");
+    `;
+    }).join("");
 
     const routeBtn = d.routeStops && d.routeStops.length >= 2 ? `
       <a class="route-go" href="${multiRouteUrl(d.routeStops)}" target="_blank" rel="noopener">
