@@ -4,13 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <script>
-(function(){
-  var KEY='nc500-auth', PASS='surtees500';
-  if(localStorage.getItem(KEY)!=='1'){
-    var p=prompt('NC500 · Surtees — Password');
-    if(p!==PASS){document.documentElement.remove();throw new Error('auth');}
-    localStorage.setItem(KEY,'1');
-  }
+(async function(){
+  var KEY='nc500-auth';
+  var HASH='6a0d119679a3276c37d145fb81090c829c025226aa90696bc0eec44b5d338044';
+  if(localStorage.getItem(KEY)==='1') return;
+  document.documentElement.style.visibility='hidden';
+  var p=prompt('NC500 · Surtees — Password');
+  if(!p){document.documentElement.remove();return;}
+  var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));
+  var hash=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  if(hash!==HASH){document.documentElement.remove();return;}
+  localStorage.setItem(KEY,'1');
+  document.documentElement.style.visibility='';
 })();
 </script>
 <meta name="apple-mobile-web-app-capable" content="yes">
