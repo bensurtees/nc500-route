@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <script>
-// Password gate — runs before page renders
 (function(){
   var KEY='nc500-auth', PASS='surtees500';
   if(localStorage.getItem(KEY)!=='1'){
@@ -870,9 +869,6 @@ const DAYS = [
     note: "<b>Ben's drive — direct route.</b> A1/A68/A9 to Inverness Airport for 14:05 pickup. Save the Lecht for the drive to Mum's next Saturday — no time pressure then.",
     routeStops: [
       { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
-      { lat: 55.9533, lon: -3.1883, label: "Edinburgh" },
-      { lat: 56.3950, lon: -3.4308, label: "Perth" },
-      { lat: 57.1958, lon: -3.8281, label: "Aviemore" },
       { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
     ],
     altRoute: {
@@ -881,11 +877,9 @@ const DAYS = [
       stops: [
         { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
         { lat: 57.1958, lon: -3.8281, label: "Aviemore" },
-        { lat: 57.2000, lon: -3.5500, label: "Boat of Garten" },
         { lat: 57.2483, lon: -3.3742, label: "Tomintoul" },
         { lat: 57.1819, lon: -3.2469, label: "Lecht summit" },
         { lat: 57.1700, lon: -3.2192, label: "Cockbridge" },
-        { lat: 57.1264, lon: -2.6406, label: "Alford (A944)" },
         { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
       ],
     },
@@ -1053,9 +1047,6 @@ const DAYS = [
       sublabel: "IVR → Whitley Bay · A9/A1 · ~4 hrs",
       stops: [
         { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
-        { lat: 57.1958, lon: -3.8281, label: "Aviemore" },
-        { lat: 56.3950, lon: -3.4308, label: "Perth" },
-        { lat: 55.9533, lon: -3.1883, label: "Edinburgh" },
         { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
       ],
     },
@@ -1069,7 +1060,6 @@ const DAYS = [
         { lat: 57.2483, lon: -3.3742, label: "Tomintoul" },
         { lat: 57.1819, lon: -3.2469, label: "Lecht summit" },
         { lat: 57.1700, lon: -3.2192, label: "Cockbridge" },
-        { lat: 57.1264, lon: -2.6406, label: "Alford" },
         { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
       ],
     },
@@ -1391,7 +1381,6 @@ const todayIdx = findTodayIndex();
 if (todayIdx > 0) selectDay(todayIdx);
 </script>
 <script>
-// Register service worker for offline caching
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');
 }
