@@ -41,7 +41,7 @@ DAY 4 · Wednesday 27 May · Inverewe · Ullapool → Kylesku (~85 mi · 3 hrs)
   Ullapool — lunch                  57.8956, -5.1622
   Jet Station — Garve Rd IV26 2SY   57.8972, -5.1537
   Stac Pollaidh car park            58.0346, -5.2065
-  Knockan Crag                      58.0367, -4.9933
+  Knockan Crag                      58.0339, -5.0710
   Kylesku Hotel (hotel)             58.2572, -5.0183
 
 
