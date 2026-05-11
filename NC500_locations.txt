@@ -28,6 +28,7 @@ DAY 3 · Tuesday 26 May · Bealach na Bà → Gairloch (~90 mi · 3.5 hrs)
 ----------------------------------------------------------------------
   Bealach na Bà — summit            57.4120, -5.7017
   Applecross — village + beach      57.4339, -5.8158
+  Kenmore [PIN - coast road only]   57.5434, -5.7424
   Shieldaig Bar — Tigh an Eilean    57.5181, -5.6519
   Gairloch Petrol Station           57.7216, -5.6865
   Gairloch Highland Lodge (hotel)   57.7097, -5.6755
