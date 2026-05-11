@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NC500">
+<meta name="theme-color" content="#1a1612">
+<title>NC500 · Surtees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%23f4ede0'/><text x='50%25' y='44%25' text-anchor='middle' font-family='serif' font-style='italic' font-weight='600' font-size='52' fill='%231a1612'>NC</text><text x='50%25' y='78%25' text-anchor='middle' font-family='serif' font-weight='800' font-size='62' fill='%23c8501e'>500</text></svg>">
+
+<style>
+  :root {
+    --paper: #f4ede0;
+    --paper-2: #ebe2d2;
+    --paper-edge: #d8cdb8;
+    --ink: #1a1612;
+    --ink-2: #3a322a;
+    --ink-3: #6b5d4f;
+    --rule: #c4b59c;
+    --rule-2: #a89878;
+    --accent: #c8501e;
+    --accent-deep: #9a3a12;
+    --accent-soft: #e6c5a8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+
+  body {
+    min-height: 100vh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(200,80,30,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(26,22,18,0.03) 0%, transparent 60%);
+  }
+
+  /* Subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(26,22,18,0.012) 2px, rgba(26,22,18,0.012) 3px),
+      repeating-linear-gradient(90deg, transparent 0px, transparent 2px, rgba(26,22,18,0.008) 2px, rgba(26,22,18,0.008) 3px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ──────────────────────────────────────────────────────── */
+  /* HEADER                                                    */
+  /* ──────────────────────────────────────────────────────── */
+  .masthead {
+    position: relative;
+    z-index: 5;
+    padding: 32px 24px 20px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .masthead-row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 14px;
+  }
+  .masthead-row1 .roadbook { color: var(--accent); font-weight: 700; }
+
+  .masthead-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    font-variation-settings: "SOFT" 50, "WONK" 1;
+  }
+  .masthead-title em {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 600;
+  }
+  .masthead-sub {
+    margin-top: 10px;
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--ink-3);
+    font-weight: 400;
+  }
+
+  .masthead-stats {
+    display: flex;
+    gap: 0;
+    margin-top: 18px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .masthead-stats .stat {
+    flex: 1;
+    padding: 10px 4px;
+    text-align: center;
+    border-right: 1px dotted var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .masthead-stats .stat:last-child { border-right: 0; }
+  .masthead-stats .stat .v {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .masthead-stats .stat .l {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+
+  /* ──────────────────────────────────────────────────────── */
+  /* DAY TABS                                                  */
+  /* ──────────────────────────────────────────────────────── */
+  .tabs {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0;
+    overflow-x: auto;
+    display: flex;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex: 0 0 auto;
+    padding: 14px 16px 12px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    text-align: center;
+    border-right: 1px dotted var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-3);
+    transition: color 0.15s ease;
+    position: relative;
+  }
+  .tab:last-child { border-right: 0; }
+  .tab .num {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+  }
+  .tab .date {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 1px;
+    letter-spacing: -0.01em;
+  }
+  .tab.active { color: var(--accent); }
+  .tab.active .date { color: var(--accent); }
+  .tab.active::after {
+    content: "";
+    position: absolute;
+    left: 12px; right: 12px; bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .tab.today .num::before {
+    content: "● ";
+    color: var(--accent);
+  }
+
+  /* ──────────────────────────────────────────────────────── */
+  /* CONTENT                                                   */
+  /* ──────────────────────────────────────────────────────── */
+  .content {
+    position: relative;
+    z-index: 5;
+    padding: 0 24px 120px;
+  }
+
+  .day-panel {
+    display: none;
+    padding-top: 20px;
+    animation: fadein 0.3s ease;
+  }
+  .day-panel.active { display: block; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* Day header */
+  .day-folio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .day-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variation-settings: "SOFT" 50;
+  }
+  .day-title em {
+    font-style: italic;
+    font-weight: 500;
+  }
+  .day-arrow {
+    color: var(--accent);
+    font-style: normal;
+    margin: 0 6px;
+    font-weight: 300;
+  }
+  .day-meta {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--paper-2);
+    border-left: 3px solid var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .day-meta b { color: var(--ink); font-weight: 700; }
+
+  /* Primary route button */
+  .route-go {
+    display: block;
+    margin: 18px 0 24px;
+    padding: 18px 20px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .route-go::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 50%, rgba(200,80,30,0.25) 0%, transparent 60%);
+    opacity: 0.7;
+  }
+  .route-go:active { transform: scale(0.99); }
+  .route-go .label {
+    position: relative;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .route-go .text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .route-go .heading {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .route-go .arrow {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 0.8;
+    color: var(--accent);
+  }
+
+  /* Alt route button — secondary, paper-toned */
+  .route-alt {
+    display: block;
+    margin: 0 0 12px;
+    padding: 14px 16px;
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    position: relative;
+    transition: background 0.15s ease;
+  }
+  .route-alt:active { background: var(--accent-soft); }
+  .route-alt .alt-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .route-alt .alt-sub {
+    display: block;
+    margin-top: 4px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-2);
+    font-weight: 400;
+    padding-right: 30px;
+  }
+  .route-alt .alt-arrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  /* Apple Maps route button — beneath the main Google Maps one */
+  .route-apple {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -18px 0 24px;
+    padding: 10px 14px;
+    background: transparent;
+    color: var(--ink-2);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    border-top: 0;
+    transition: background 0.15s ease;
+  }
+  .route-apple:active { background: var(--paper-2); }
+  .route-apple .apple-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+  .route-apple .apple-label em {
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .route-apple .apple-arrow {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink-3);
+    font-weight: 300;
+  }
+
+  /* Apple Maps version of an alt route — small underline link */
+  .route-alt-apple {
+    display: block;
+    margin: -8px 0 12px 4px;
+    padding: 4px 0;
+    color: var(--ink-3);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px dotted var(--rule);
+    width: max-content;
+  }
+  .route-alt-apple:active { color: var(--accent); }
+
+  /* Stops list */
+  .stops-h {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin: 28px 0 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+  }
+  .stops-h .count { color: var(--accent); }
+
+  .stop {
+    display: grid;
+    grid-template-columns: 28px 1fr 48px;
+    gap: 10px;
+    padding: 16px 0;
+    border-bottom: 1px dotted var(--rule);
+    align-items: start;
+  }
+
+  .stop-no {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    text-align: right;
+    padding-top: 4px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .stop.is-hotel .stop-no,
+  .stop.is-fuel .stop-no { color: var(--accent); }
+
+  .stop-body { min-width: 0; }
+
+  .stop-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    color: var(--ink-3);
+    margin-bottom: 3px;
+  }
+  .stop.is-hotel .stop-kicker { color: var(--accent); }
+  .stop.is-fuel .stop-kicker { color: var(--accent); }
+  .stop.is-stop .stop-kicker { color: var(--ink-3); }
+
+  .stop-name {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .stop-name em { font-style: italic; }
+
+  .stop-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin-top: 4px;
+  }
+  .stop-note b { color: var(--ink); font-weight: 600; }
+
+  .stop-coord {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-top: 5px;
+    letter-spacing: -0.01em;
+  }
+
+  .stop-go-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .stop-go {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 42px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .stop-go span {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 2px;
+    line-height: 0.8;
+  }
+  .stop-go:active {
+    background: var(--ink);
+    color: var(--accent);
+  }
+  .stop-go-apple {
+    border-color: var(--ink-3);
+    color: var(--ink-3);
+  }
+  .stop-go-apple:active {
+    background: var(--ink-3);
+    color: var(--paper);
+  }
+  .stop.is-hotel .stop-go:not(.stop-go-apple),
+  .stop.is-fuel .stop-go:not(.stop-go-apple) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .stop.is-hotel .stop-go:not(.stop-go-apple):active,
+  .stop.is-fuel .stop-go:not(.stop-go-apple):active {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* Hotel info card */
+  .hotel-card {
+    margin: 24px 0;
+    padding: 18px 18px 16px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .hotel-card::before {
+    content: "TONIGHT";
+    position: absolute;
+    top: -8px;
+    left: 16px;
+    background: var(--paper);
+    padding: 0 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .hotel-card .hname {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .hotel-card .href {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-top: 4px;
+    word-break: break-all;
+  }
+  .hotel-card .hactions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .hotel-card .hactions a {
+    flex: 1;
+    padding: 10px 8px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .hotel-card .hactions a:active { background: var(--ink); color: var(--paper); }
+  .hotel-card .hactions a.primary {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+  }
+  .hotel-card .hactions a.primary:active {
+    background: var(--accent-deep);
+  }
+  .hotel-card .hactions a.primary.apple {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .hotel-card .hactions a.primary.apple:active {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* Watch-this section */
+  .watch {
+    margin: 24px 0 0;
+    padding: 14px 16px;
+    background: transparent;
+    border: 1px dashed var(--accent);
+    color: var(--ink-2);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .watch h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .watch ul { list-style: none; }
+  .watch li {
+    padding: 4px 0 4px 16px;
+    position: relative;
+  }
+  .watch li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: 'Fraunces', serif;
+  }
+  .watch li b { color: var(--ink); font-weight: 600; }
+
+  /* Footer per page */
+  .day-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-3);
+  }
+  .day-footer .folio { color: var(--accent); font-weight: 700; }
+
+  /* Tools bar (bottom) */
+  .toolbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 30;
+    background: var(--paper);
+    border-top: 2px solid var(--ink);
+    padding: 10px 16px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    display: flex;
+    gap: 6px;
+  }
+  .toolbar button {
+    flex: 1;
+    padding: 9px 4px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .toolbar button:active { background: var(--ink); color: var(--paper); }
+
+  /* Modal */
+  .modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(26,22,18,0.55);
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--paper);
+    width: 100%;
+    max-width: 520px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-top: 2px solid var(--ink);
+    padding: 24px 24px;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+  .modal h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .modal h3 em { color: var(--accent); font-style: italic; }
+  .modal .modal-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-3);
+    margin-bottom: 18px;
+  }
+  .modal .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dotted var(--rule);
+    gap: 8px;
+  }
+  .modal .row .who {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .modal .row .what {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+  .modal .row a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid var(--accent);
+    white-space: nowrap;
+  }
+  .modal .row a:active { background: var(--accent); color: var(--paper); }
+  .modal-close {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+
+  /* Hint banner for new users */
+  .hint {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    position: relative;
+  }
+  .hint b { color: var(--ink); font-weight: 600; }
+  .hint .x {
+    position: absolute;
+    top: 6px; right: 8px;
+    background: none;
+    border: 0;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink-3);
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .hint.hidden { display: none; }
+
+  /* The decorative road graphic */
+  .roadmark {
+    margin: 24px 0;
+    text-align: center;
+    color: var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────────────────── MASTHEAD ───────────────────── -->
+<header class="masthead">
+  <div class="masthead-row1">
+    <span>The Surtees Family</span>
+    <span class="roadbook">Roadbook · Vol I</span>
+  </div>
+  <h1 class="masthead-title">North Coast<br><em>Five Hundred</em></h1>
+  <div class="masthead-sub">Sun 24 — Sat 30 May, MMXXVI · Inverness ⟶ Inverness</div>
+  <div class="masthead-stats">
+    <div class="stat"><div class="v">7</div><div class="l">Nights</div></div>
+    <div class="stat"><div class="v">~450</div><div class="l">Miles</div></div>
+    <div class="stat"><div class="v">6</div><div class="l">Hotels</div></div>
+    <div class="stat"><div class="v">2026</div><div class="l">911 GTS</div></div>
+  </div>
+</header>
+
+<!-- ───────────────────── DAY TABS ───────────────────── -->
+<nav class="tabs" id="tabs"></nav>
+
+<!-- ───────────────────── DAYS ───────────────────── -->
+<main class="content" id="content"></main>
+
+<!-- ───────────────────── BOTTOM TOOLBAR ───────────────────── -->
+<div class="toolbar">
+  <button onclick="openModal('hotels')">Hotels</button>
+  <button onclick="openModal('contacts')">Phones</button>
+  <button onclick="openModal('fuel')">Fuel</button>
+  <button onclick="openModal('refs')">Refs</button>
+</div>
+
+<!-- ───────────────────── MODAL ───────────────────── -->
+<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+/* ───────────────────────────────────────────────────────────────────
+   DATA — every stop, hotel, fuel point, with coordinates
+   ─────────────────────────────────────────────────────────────────── */
+
+const DAYS = [
+  {
+    n: 1, dateLabel: "24 May", dateLong: "Sunday 24 May",
+    title: "Whitley Bay",
+    arrow: true,
+    subtitle: "Inverness",
+    miles: "~250 mi · 4 hrs",
+    note: "<b>Ben's drive — direct route.</b> A1/A68/A9 to Inverness Airport for 14:05 pickup. Save the Lecht for the drive to Mum's next Saturday — no time pressure then.",
+    routeStops: [
+      { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
+      { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
+    ],
+    altRoute: {
+      label: "If you fancy it · Lecht reverse loop",
+      sublabel: "Add ~1.5 hrs · skip if running late",
+      stops: [
+        { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
+        { lat: 57.1958, lon: -3.8281, label: "Aviemore" },
+        { lat: 57.2483, lon: -3.3742, label: "Tomintoul" },
+        { lat: 57.1819, lon: -3.2469, label: "Lecht summit" },
+        { lat: 57.1700, lon: -3.2192, label: "Cockbridge" },
+        { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
+      ],
+    },
+    stops: [
+      { kind: "fuel", kicker: "08:30 · Depart", name: "Fill up — Whitley Bay", lat: 55.0420, lon: -1.4470, note: "Cheapest fuel of the trip. Brim it. <b>A1 → A1(M) → A68 → Edinburgh bypass → M90 → A9.</b> Direct run, ~4 hrs." },
+      { kind: "stop", kicker: "~14:05 · Pickup", name: "Inverness Airport", lat: 57.5425, lon: -4.0475, note: "Collect Jacs and the girls. <b>EZY847 from Gatwick, lands 14:05.</b> ~10 mins from airport to hotel." },
+      { kind: "hotel", kicker: "Tonight", name: "Glen Mhor Hotel", lat: 57.4747, lon: -4.2300, note: "On the River Ness. Walk to Inverness Castle and town centre. <b>Booked by Jacs.</b>" },
+      { kind: "stop", kicker: "Evening", name: "Uile-bheist Brewery & Distillery", lat: 57.4717, lon: -4.2197, note: "Award-winning Inverness craft brewery. Beers, gin, whisky, food. <b>Booked by Jacs.</b>" },
+    ],
+    hotel: { name: "Glen Mhor Hotel", ref: "Booked by Jacs", tel: "01463 234308", lat: 57.4747, lon: -4.2300 },
+    watch: [{
+      title: "If using the Lecht detour",
+      items: [
+        "<b>Leave Whitley Bay 07:00</b> instead of 08:30 — adds ~1.5 hrs",
+        "Lecht is one-way north here: A9 to Aviemore → A95 → Tomintoul → <b>UP and OVER the Lecht to Cockbridge</b> → A944 → A96 west to IVR",
+        "<b>Check Traffic Scotland</b> — A939 closes for weather/works",
+        "Bail-out: stay on A9 if running late at Aviemore"
+      ]
+    }],
+  },
+  {
+    n: 2, dateLabel: "25 May", dateLong: "Monday 25 May",
+    title: "Inverness",
+    arrow: true,
+    subtitle: "Torridon",
+    miles: "~68 mi · 2 hrs",
+    note: "<b>Fuel super unleaded</b> before leaving Inverness. Rogie Falls walk. Arrive Torridon for lunch.",
+    routeStops: [
+      { lat: 57.4747, lon: -4.2300, label: "Glen Mhor" },
+      { lat: 57.4719, lon: -4.1975, label: "Shell V-Power" },
+      { lat: 57.5878, lon: -4.6131, label: "Rogie Falls" },
+      { lat: 57.5489, lon: -5.5108, label: "The Torridon" },
+    ],
+    stops: [
+      { kind: "fuel", kicker: "09:00 · Fuel", name: "Shell V-Power, Old Perth Rd", lat: 57.4719, lon: -4.1975, note: "<b>Super unleaded E5 97 RON</b>. Or BP Ultimate, Longman Rd IV1 1RY. Contin 24hr backup ~20 mins out on A835." },
+      { kind: "stop", kicker: "~10:00 · 45 min", name: "Rogie Falls", lat: 57.5878, lon: -4.6131, note: "Short walk from car park. Suspension bridge wobbles brilliantly — the girls will love it. Salmon ladder. Pay & display ~£2." },
+      { kind: "hotel", kicker: "~13:00 · Lunch", name: "The Torridon", lat: 57.5489, lon: -5.5108, note: "Rooms from 4pm, luggage stored on arrival. Afternoon: drive to Diabaig (shipwreck bay), Beinn Alligin viewpoint, or e-bikes. <b>Bo and Muc 19:45 booked.</b> 300+ malts in the bar." },
+    ],
+    hotel: { name: "The Torridon", ref: "3347846HRT491802", tel: "01445 791242", lat: 57.5489, lon: -5.5108 },
+    watch: [],
+  },
+  {
+    n: 3, dateLabel: "26 May", dateLong: "Tuesday 26 May",
+    title: "Bealach na Bà",
+    arrow: true,
+    subtitle: "Gairloch",
+    miles: "~90 mi · 3.5 hrs",
+    note: "Single-track summit road. <b>Check Bealach status Mon eve</b> on LiveTrafficScotland. Applecross Inn closed Tuesdays. Lunch Shieldaig — call 01520 755251.",
+    routeStops: [
+      { lat: 57.5489, lon: -5.5108, label: "Torridon" },
+      { lat: 57.4263, lon: -5.7515, label: "Bealach summit" },
+      { lat: 57.4339, lon: -5.8158, label: "Applecross" },
+      { lat: 57.5181, lon: -5.6519, label: "Shieldaig" },
+      { lat: 57.7311, lon: -5.6886, label: "Gairloch Lodge" },
+    ],
+    stops: [
+      { kind: "stop", kicker: "~10:00 · 1 hr", name: "Bealach na Bà — summit", lat: 57.4263, lon: -5.7515, note: "626m. Scotland's most dramatic road. Park at viewpoint. Views to Skye, Raasay, Outer Hebrides on clear days. <b>Drive slowly throughout — single track, hairpins, 20% gradient.</b>" },
+      { kind: "stop", kicker: "~11:00 · 30 min", name: "Applecross — village + beach", lat: 57.4339, lon: -5.8158, note: "Inn closed Tuesdays. Walk to beach. Potting Shed Café in walled garden may be open for coffee." },
+      { kind: "stop", kicker: "~12:30 · Lunch", name: "Shieldaig Bar — Tigh an Eilean", lat: 57.5181, lon: -5.6519, note: "Right on Loch Shieldaig. Mountains behind. <b>Call ahead 01520 755251.</b>" },
+      { kind: "fuel", kicker: "Arrival · Fuel", name: "Gairloch Petrol Station", lat: 57.7297, lon: -5.6822, note: "Standard E10 only. Fill on arrival — ~50 miles to Ullapool tomorrow." },
+      { kind: "hotel", kicker: "16:00–18:00", name: "Gairloch Highland Lodge", lat: 57.7311, lon: -5.6886, note: "Family room, outside entrance. <b>Total £270.08 incl. breakfast. Non-refundable, not yet taken.</b>" },
+      { kind: "stop", kicker: "19:00 · Dinner", name: "The Old Inn", lat: 57.7172, lon: -5.6856, note: "500m from hotel. <b>4 covers, ref B9X737RW.</b> Tel 01445 712006." },
+    ],
+    hotel: { name: "Gairloch Highland Lodge", ref: "WTB1A2B986", tel: "01445 712068", lat: 57.7311, lon: -5.6886 },
+    watch: [{
+      title: "Watch tonight",
+      items: ["<b>LiveTrafficScotland</b> — Bealach na Bà status for tomorrow"]
+    }],
+  },
+  {
+    n: 4, dateLabel: "27 May", dateLong: "Wednesday 27 May",
+    title: "Inverewe · Ullapool",
+    arrow: true,
+    subtitle: "Kylesku",
+    miles: "~85 mi · 3 hrs",
+    note: "<b>⚠ ULLAPOOL = LAST SUPER UNLEADED.</b> Fill to brim. Inverewe open Wed 09:30. NTS members free. Stac Pollaidh photo stop on the way north.",
+    routeStops: [
+      { lat: 57.7311, lon: -5.6886, label: "Gairloch Lodge" },
+      { lat: 57.7747, lon: -5.5969, label: "Inverewe" },
+      { lat: 57.8956, lon: -5.1622, label: "Ullapool" },
+      { lat: 58.0589, lon: -5.2031, label: "Stac Pollaidh" },
+      { lat: 58.0367, lon: -4.9933, label: "Knockan Crag" },
+      { lat: 58.2581, lon: -5.0292, label: "Kylesku" },
+    ],
+    stops: [
+      { kind: "stop", kicker: "09:30 · 1.5 hrs", name: "Inverewe Garden — NTS", lat: 57.7747, lon: -5.5969, note: "Sub-tropical at 57°N. Palms, giant redwoods, Himalayan plants warmed by Gulf Stream. Watch for otters. <b>NTS members free</b>, ~£15/adult otherwise." },
+      { kind: "stop", kicker: "~12:30 · 1 hr", name: "Ullapool — lunch", lat: 57.8956, lon: -5.1622, note: "Wander harbour. Lunch at Seaforth Inn or Ceilidh Place." },
+      { kind: "fuel", kicker: "Critical Fuel ⚠", name: "Jet Station — Garve Rd, IV26 2SY", lat: 57.8911, lon: -5.1597, note: "<b>LAST SUPER UNLEADED ON THE ROUTE.</b> Fill to absolute brim. No alternatives until you return south days later." },
+      { kind: "stop", kicker: "20 min · Photos", name: "Stac Pollaidh viewpoint", lat: 58.0589, lon: -5.2031, note: "Short detour off A835 onto the Achiltibuie road. <b>Scotland's most distinctive mountain</b> — a jagged rock comb above flat moorland. 20 mins for photos at the base car park, no need to walk up. Then back to A835 for Knockan." },
+      { kind: "stop", kicker: "20 min · Free", name: "Knockan Crag", lat: 58.0367, lon: -4.9933, note: "Ancient Lewisian gneiss. Moine Thrust explanation panels — one of geology's great puzzles. Worth stopping for the kids." },
+      { kind: "hotel", kicker: "~15:30", name: "Kylesku Hotel", lat: 58.2581, lon: -5.0292, note: "17th C coaching inn. Stop briefly at Kylesku Bridge viewpoint before dropping in. <b>Best seafood on the NC500</b> — langoustines from the loch. Book dinner on arrival." },
+    ],
+    hotel: { name: "Kylesku Hotel", ref: "DBM384944369986523", tel: "01971 910047", lat: 58.2581, lon: -5.0292 },
+    watch: [],
+  },
+  {
+    n: 5, dateLabel: "28 May", dateLong: "Thursday 28 May",
+    title: "Assynt · Durness",
+    arrow: true,
+    subtitle: "Tongue",
+    miles: "~95 mi · 4 hrs",
+    note: "<b>Long day. Leave 08:30.</b> Smoo Cave boat tour cash only. Durness 24hr card pump — do not skip.",
+    routeStops: [
+      { lat: 58.2581, lon: -5.0292, label: "Kylesku" },
+      { lat: 58.1700, lon: -4.9833, label: "Ardvreck" },
+      { lat: 58.5642, lon: -4.7194, label: "Smoo Cave" },
+      { lat: 58.4742, lon: -4.4147, label: "Tongue" },
+    ],
+    stops: [
+      { kind: "stop", kicker: "08:30 · 30 min", name: "Wailing Widow Falls", lat: 58.2367, lon: -5.0192, note: "5 mins south of Kylesku on A894. 10–15 min walk to a 4.9★ gorge waterfall. Often missed. <b>Boots — can be muddy.</b>" },
+      { kind: "stop", kicker: "~09:00 · 30 min", name: "Ardvreck Castle, Loch Assynt", lat: 58.1700, lon: -4.9833, note: "15th C MacLeod ruins on the loch shore. Free, open access. On a still morning the reflections are extraordinary. Small layby." },
+      { kind: "fuel", kicker: "Top up if <½", name: "Scourie Petrol", lat: 58.3506, lon: -5.1567, note: "Standard E10 only. Top up if below half before the long run north." },
+      { kind: "stop", kicker: "~13:00 · 1.5 hrs", name: "Smoo Cave — Durness", lat: 58.5642, lon: -4.7194, note: "Britain's largest sea cave — free entry. Boat tour under the underground waterfall: ~40 min, ~£15, <b>cash only</b>. smoocave.org." },
+      { kind: "stop", kicker: "5 min from Smoo", name: "Sango Bay — Durness", lat: 58.5697, lon: -4.7406, note: "Extraordinary white sand beach. 30 min." },
+      { kind: "fuel", kicker: "⚠ Do not skip", name: "Durness 24hr card pump", lat: 58.5658, lon: -4.7475, note: "Card-operated. <b>Fill before heading east to Tongue.</b>" },
+      { kind: "hotel", kicker: "~16:30", name: "Tongue Hotel", lat: 58.4742, lon: -4.4147, note: "Walk to Castle Varrich ruins before dinner — 30 min easy path, superb views over the Kyle and Ben Loyal. Book dinner on arrival." },
+    ],
+    hotel: { name: "Tongue Hotel", ref: "DBM423814548254587", tel: "01847 611206", lat: 58.4742, lon: -4.4147 },
+    watch: [{
+      title: "Watch tonight",
+      items: ["<b>Dunrobin Castle</b> — opening times for Friday", "<b>Weather</b> for Friday morning"]
+    }],
+  },
+  {
+    n: 6, dateLabel: "29 May", dateLong: "Friday 29 May",
+    title: "North Coast · Dunrobin",
+    arrow: true,
+    subtitle: "Dornoch",
+    miles: "~90 mi · 3 hrs",
+    note: "Last NC500 night. <b>Check Chanonry tide tables tonight</b> — arrive 1.5 hrs before high tide tomorrow.",
+    routeStops: [
+      { lat: 58.4742, lon: -4.4147, label: "Tongue" },
+      { lat: 58.5419, lon: -4.2358, label: "Bettyhill" },
+      { lat: 58.0139, lon: -4.4019, label: "Lairg" },
+      { lat: 57.9819, lon: -3.9450, label: "Dunrobin" },
+      { lat: 57.8814, lon: -4.0269, label: "Dornoch" },
+    ],
+    stops: [
+      { kind: "fuel", kicker: "09:00 · Fuel first", name: "Tongue Petrol Station", lat: 58.4769, lon: -4.4131, note: "Fill first thing. Bettyhill backup. <b>Next reliable fuel south is Dingwall — 90+ miles.</b>" },
+      { kind: "stop", kicker: "Causeway view", name: "Kyle of Tongue causeway", lat: 58.4972, lon: -4.4569, note: "Stop on the causeway — Ben Loyal to the south, open sea to the north. On a clear morning one of the great views of the trip." },
+      { kind: "stop", kicker: "~10:00 · 45 min", name: "Farr Bay — Bettyhill", lat: 58.5419, lon: -4.2358, note: "Wide white sand north-coast beach. Coffee at Bettyhill Hotel. Top up fuel here if below half." },
+      { kind: "stop", kicker: "~13:00 · 1 hr", name: "Dunrobin Castle", lat: 57.9819, lon: -3.9450, note: "Fairytale French château over the Dornoch Firth. Most northerly great house in Britain. Gardens spectacular in late May. <b>Falconry displays daily.</b>" },
+      { kind: "hotel", kicker: "~14:30", name: "Dornoch Station Hotel", lat: 57.8814, lon: -4.0269, note: "Cathedral town. Walk through the cathedral and the wide sandy beach. <b>Last night of the NC500 — savour dinner.</b>" },
+    ],
+    hotel: { name: "Dornoch Station Hotel", ref: "40686SG020037 / 020038", tel: "01862 730333", lat: 57.8814, lon: -4.0269 },
+    watch: [{
+      title: "Watch tonight",
+      items: ["<b>Chanonry Point tide tables</b> — tidetimes.org.uk/chanonry-point-tide-times", "<b>Arrive 1–1.5 hrs before high tide</b> tomorrow morning"]
+    }],
+  },
+  {
+    n: 7, dateLabel: "30 May", dateLong: "Saturday 30 May",
+    title: "Chanonry",
+    arrow: true,
+    subtitle: "Whitley Bay",
+    miles: "Morning + ~250 mi to Mum's",
+    note: "Tide-timed dolphins. Drop Jacs + girls at IVR by 13:00. EZY848 14:55 → LGW. Then Ben drives south to mum's — <b>no time pressure, save the Lecht for now if you fancy.</b>",
+    routeStops: [
+      { lat: 57.8814, lon: -4.0269, label: "Dornoch" },
+      { lat: 57.5736, lon: -4.0961, label: "Chanonry Point" },
+      { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
+    ],
+    altRoute: {
+      label: "To Mum's · DIRECT",
+      sublabel: "IVR → Whitley Bay · A9/A1 · ~4 hrs",
+      stops: [
+        { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
+        { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
+      ],
+    },
+    altRoute2: {
+      label: "To Mum's · ★ VIA THE LECHT",
+      sublabel: "IVR → Aviemore → Lecht → Cockbridge → A944 → A90 → Mum's · adds ~1.5–2 hrs",
+      stops: [
+        { lat: 57.5425, lon: -4.0475, label: "IVR Airport" },
+        { lat: 57.1958, lon: -3.8281, label: "Aviemore" },
+        { lat: 57.3239, lon: -3.6097, label: "Grantown" },
+        { lat: 57.2483, lon: -3.3742, label: "Tomintoul" },
+        { lat: 57.1819, lon: -3.2469, label: "Lecht summit" },
+        { lat: 57.1700, lon: -3.2192, label: "Cockbridge" },
+        { lat: 55.0420, lon: -1.4470, label: "Whitley Bay" },
+      ],
+    },
+    stops: [
+      { kind: "stop", kicker: "Tide-timed · 1.5 hrs", name: "Chanonry Point — Bottlenose Dolphins", lat: 57.5736, lon: -4.0961, note: "~50 min from Dornoch. <b>Park at the lighthouse end.</b> Resident Moray Firth bottlenose dolphins feed at the tidal race — among the most reliably accessible dolphins in the UK. Almost guaranteed on the right tide." },
+      { kind: "stop", kicker: "~13:00 · Drop off", name: "Inverness Airport — drop off", lat: 57.5425, lon: -4.0475, note: "EZY848 IVR 14:55 → LGW ~16:30. Drop Jacs and the girls by 13:00 for check-in. Hugs and waves, then Ben's drive south begins." },
+      { kind: "fuel", kicker: "Before driving south", name: "Inverness — fill up", lat: 57.4719, lon: -4.1975, note: "Plenty of options in Inverness. <b>Brim it</b> — long drive ahead either way. ~4 hrs direct, ~5.5–6 hrs via the Lecht." },
+      { kind: "stop", kicker: "★ If you fancy it", name: "Lecht Pass summit", lat: 57.1819, lon: -3.2469, note: "<b>The drive you didn't do on the way up.</b> 646m. evo and Porsche ROADS both pick this as one of the best stretches of tarmac in Britain. From IVR: A9 south → leave at Aviemore → A95 to Grantown → A939 south through Tomintoul → up and over the Lecht → down to Cockbridge → A944 → A90 → A1 → Whitley Bay. Watch for unmarked patrols on the A93/A939." },
+    ],
+    hotel: null,
+    watch: [{
+      title: "Saturday evening at mum's",
+      items: [
+        "<b>Direct route:</b> arrive Whitley Bay ~17:00 — easy evening with mum",
+        "<b>Via Lecht:</b> arrive ~18:30–19:00 — still fine for Saturday night",
+        "Sunday 31 May: Whitley Bay → Colchester ~4 hrs · School Monday 1 June ✓"
+      ]
+    }],
+  },
+];
+
+const HOTELS = [
+  { day: 1, name: "Glen Mhor Hotel", town: "Inverness", ref: "Booked by Jacs", tel: "01463 234308" },
+  { day: 2, name: "The Torridon", town: "Torridon", ref: "3347846HRT491802", tel: "01445 791242" },
+  { day: 3, name: "Gairloch Highland Lodge", town: "Gairloch", ref: "WTB1A2B986", tel: "01445 712068" },
+  { day: 4, name: "Kylesku Hotel", town: "Kylesku", ref: "DBM384944369986523", tel: "01971 910047" },
+  { day: 5, name: "Tongue Hotel", town: "Tongue", ref: "DBM423814548254587", tel: "01847 611206" },
+  { day: 6, name: "Dornoch Station Hotel", town: "Dornoch", ref: "40686SG020037 / 020038", tel: "01862 730333" },
+];
+
+const CONTACTS = [
+  { who: "Glen Mhor Hotel", what: "Sun 24 May — Inverness", tel: "01463 234308" },
+  { who: "The Torridon", what: "Mon 25 May — Torridon", tel: "01445 791242" },
+  { who: "Gairloch Highland Lodge", what: "Tue 26 May — Gairloch", tel: "01445 712068" },
+  { who: "The Old Inn", what: "Tue 26 May · Dinner 7pm — ref B9X737RW", tel: "01445 712006" },
+  { who: "Kylesku Hotel", what: "Wed 27 May — Kylesku", tel: "01971 910047" },
+  { who: "Tongue Hotel", what: "Thu 28 May — Tongue", tel: "01847 611206" },
+  { who: "Dornoch Station Hotel", what: "Fri 29 May — Dornoch", tel: "01862 730333" },
+  { who: "Shieldaig Bar (still to book)", what: "Tue 26 May · Lunch", tel: "01520 755251" },
+];
+
+const FUEL = [
+  { day: "Sun 24", what: "Fill at Whitley Bay before driving north", note: "Cheapest of the trip" },
+  { day: "Mon 25", what: "Shell V-Power, Old Perth Rd IV2 3RH", note: "Super E5 97. Or BP Ultimate Longman Rd IV1 1RY. Contin 24hr backup ~20 min on A835." },
+  { day: "Tue 26", what: "Gairloch Petrol Station", note: "Standard E10 only — fill on arrival" },
+  { day: "Wed 27", what: "Jet Station Ullapool, Garve Rd IV26 2SY", note: "⚠ LAST SUPER UNLEADED ON THE ROUTE — fill to brim" },
+  { day: "Thu 28", what: "Scourie en route + Durness 24hr card pump", note: "Both standard E10. Durness do not skip." },
+  { day: "Fri 29", what: "Tongue Petrol — first thing. Bettyhill backup.", note: "Next reliable south is Dingwall — 90+ miles" },
+  { day: "Sat 30", what: "Inverness — before driving south", note: "Plenty of options" },
+];
+
+const REFS = [
+  { who: "The Torridon", what: "Hotel · Mon 25 May", tel: "3347846HRT491802" },
+  { who: "Gairloch Highland Lodge", what: "Hotel · Tue 26 May · £270.08", tel: "WTB1A2B986" },
+  { who: "The Old Inn, Gairloch", what: "Dinner Tue 26 · 7pm · 4 covers", tel: "B9X737RW" },
+  { who: "Kylesku Hotel", what: "Hotel · Wed 27 May", tel: "DBM384944369986523" },
+  { who: "Tongue Hotel", what: "Hotel · Thu 28 May", tel: "DBM423814548254587" },
+  { who: "Dornoch Station Hotel (1)", what: "Hotel · Fri 29 May", tel: "40686SG020037" },
+  { who: "Dornoch Station Hotel (2)", what: "Hotel · Fri 29 May", tel: "40686SG020038" },
+  { who: "EZY847", what: "Sun 24 · LGW 12:20 → IVR 14:05", tel: "Booked by Jacs" },
+  { who: "EZY848", what: "Sat 30 · IVR 14:55 → LGW 16:30", tel: "Booked by Jacs" },
+];
+
+/* ───────────────────────────────────────────────────────────────────
+   GOOGLE MAPS URL BUILDERS
+   ─────────────────────────────────────────────────────────────────── */
+
+// Single destination — opens directions to one stop, current location as origin.
+function singleNavUrl(lat, lon) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}&travelmode=driving`;
+}
+
+// Multi-stop route. Uses the long-form /maps/dir/ URL which Google Maps app
+// accepts up to ~10 stops in practice. First point = origin, last = destination,
+// middle ones = waypoints in order.
+function multiRouteUrl(stops) {
+  if (!stops || stops.length < 2) return "#";
+  const parts = stops.map(s => `${s.lat},${s.lon}`);
+  return `https://www.google.com/maps/dir/${parts.join("/")}`;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   APPLE MAPS URL BUILDERS
+   Apple Maps universal links: https://maps.apple.com/?...
+   Better offline behaviour than Google Maps for cached regions.
+   ─────────────────────────────────────────────────────────────────── */
+
+// Single destination via Apple Maps. dirflg=d is driving directions.
+function singleNavUrlApple(lat, lon) {
+  return `https://maps.apple.com/?daddr=${lat},${lon}&dirflg=d`;
+}
+
+// Multi-stop via Apple Maps. Apple Maps daddr supports +to: between stops.
+// First stop = origin (saddr), rest joined with +to:
+function multiRouteUrlApple(stops) {
+  if (!stops || stops.length < 2) return "#";
+  const saddr = `${stops[0].lat},${stops[0].lon}`;
+  const rest = stops.slice(1).map(s => `${s.lat},${s.lon}`).join("+to:");
+  return `https://maps.apple.com/?saddr=${saddr}&daddr=${rest}&dirflg=d`;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   RENDER
+   ─────────────────────────────────────────────────────────────────── */
+
+const TODAY = new Date(); // device date
+const TRIP_DATES = [
+  new Date(2026, 4, 24), // Day 1
+  new Date(2026, 4, 25),
+  new Date(2026, 4, 26),
+  new Date(2026, 4, 27),
+  new Date(2026, 4, 28),
+  new Date(2026, 4, 29),
+  new Date(2026, 4, 30),
+];
+
+function findTodayIndex() {
+  const t = new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate()).getTime();
+  for (let i = 0; i < TRIP_DATES.length; i++) {
+    const d = TRIP_DATES[i].getTime();
+    if (t === d) return i;
+  }
+  return -1;
+}
+
+function renderTabs() {
+  const todayIdx = findTodayIndex();
+  const html = DAYS.map((d, i) => `
+    <button class="tab ${i === 0 ? 'active' : ''} ${i === todayIdx ? 'today' : ''}" data-day="${i}" onclick="selectDay(${i})">
+      <span class="num">Day ${d.n}</span>
+      <span class="date">${d.dateLabel}</span>
+    </button>
+  `).join("");
+  document.getElementById("tabs").innerHTML = html;
+}
+
+function fmtCoord(lat, lon) {
+  return `${lat.toFixed(4)}°N · ${Math.abs(lon).toFixed(4)}°W`;
+}
+
+function renderDays() {
+  const html = DAYS.map((d, i) => {
+    const stopsHtml = d.stops.map((s, idx) => `
+      <div class="stop is-${s.kind}">
+        <div class="stop-no">${String(idx + 1).padStart(2, '0')}</div>
+        <div class="stop-body">
+          <div class="stop-kicker">${s.kicker}</div>
+          <div class="stop-name">${s.name}</div>
+          <div class="stop-note">${s.note}</div>
+          <div class="stop-coord">${fmtCoord(s.lat, s.lon)}</div>
+        </div>
+        <div class="stop-go-stack">
+          <a class="stop-go" href="${singleNavUrl(s.lat, s.lon)}" target="_blank" rel="noopener" aria-label="Navigate to ${s.name} in Google Maps">G<span>→</span></a>
+          <a class="stop-go stop-go-apple" href="${singleNavUrlApple(s.lat, s.lon)}" target="_blank" rel="noopener" aria-label="Navigate to ${s.name} in Apple Maps">A<span>→</span></a>
+        </div>
+      </div>
+    `).join("");
+
+    const routeBtn = d.routeStops && d.routeStops.length >= 2 ? `
+      <a class="route-go" href="${multiRouteUrl(d.routeStops)}" target="_blank" rel="noopener">
+        <span class="label">Today's full route · Google Maps</span>
+        <span class="text">
+          <span class="heading">${d.title}${d.arrow ? '<span class="day-arrow">⟶</span>' : ''}${d.subtitle && d.arrow ? d.subtitle : ''}</span>
+          <span class="arrow">→</span>
+        </span>
+      </a>
+      <a class="route-apple" href="${multiRouteUrlApple(d.routeStops)}" target="_blank" rel="noopener">
+        <span class="apple-label">Same route · Apple Maps <em>(better offline)</em></span>
+        <span class="apple-arrow">→</span>
+      </a>
+    ` : '';
+
+    function altBtn(alt) {
+      if (!alt || !alt.stops || alt.stops.length < 2) return '';
+      return `
+        <a class="route-alt" href="${multiRouteUrl(alt.stops)}" target="_blank" rel="noopener">
+          <span class="alt-label">${alt.label}</span>
+          <span class="alt-sub">${alt.sublabel || ''}</span>
+          <span class="alt-arrow">→</span>
+        </a>
+        <a class="route-alt-apple" href="${multiRouteUrlApple(alt.stops)}" target="_blank" rel="noopener">
+          <span class="alt-apple-label">↳ Same in Apple Maps</span>
+        </a>
+      `;
+    }
+    const altBtns = altBtn(d.altRoute) + altBtn(d.altRoute2);
+
+    const watchHtml = (d.watch || []).map(w => `
+      <div class="watch">
+        <h4>${w.title}</h4>
+        <ul>${w.items.map(it => `<li>${it}</li>`).join("")}</ul>
+      </div>
+    `).join("");
+
+    const hotelHtml = d.hotel ? `
+      <div class="hotel-card">
+        <div class="hname">${d.hotel.name}</div>
+        <div class="href">${d.hotel.ref} · ${d.hotel.tel}</div>
+        <div class="hactions">
+          <a href="tel:${d.hotel.tel.replace(/\s/g, '')}">Call</a>
+          <a class="primary" href="${singleNavUrl(d.hotel.lat, d.hotel.lon)}" target="_blank" rel="noopener">Google</a>
+          <a class="primary apple" href="${singleNavUrlApple(d.hotel.lat, d.hotel.lon)}" target="_blank" rel="noopener">Apple</a>
+        </div>
+      </div>
+    ` : '';
+
+    return `
+      <section class="day-panel ${i === 0 ? 'active' : ''}" data-day="${i}">
+        <div class="day-folio">Day ${d.n} of 7 · ${d.dateLong}</div>
+        <h2 class="day-title">
+          ${d.title}${d.arrow ? '<span class="day-arrow">⟶</span>' : ''}<em>${d.arrow ? d.subtitle : ''}</em>
+        </h2>
+        <div class="day-meta"><b>${d.miles}</b> · ${d.note}</div>
+        ${routeBtn}
+        ${altBtns}
+        ${hotelHtml}
+        <div class="stops-h"><span>The Stops</span><span class="count">${d.stops.length} total</span></div>
+        ${stopsHtml}
+        ${watchHtml}
+        <div class="roadmark">· · · · · · · · · ·</div>
+        <div class="day-footer">
+          <span class="folio">Day ${d.n} / 7</span>
+          <span>NC500 · Surtees · MMXXVI</span>
+        </div>
+      </section>
+    `;
+  }).join("");
+  document.getElementById("content").innerHTML = html;
+}
+
+function selectDay(i) {
+  document.querySelectorAll(".tab").forEach((el, idx) => {
+    el.classList.toggle("active", idx === i);
+  });
+  document.querySelectorAll(".day-panel").forEach((el, idx) => {
+    el.classList.toggle("active", idx === i);
+  });
+  // Scroll selected tab into view, content to top
+  const tab = document.querySelector(`.tab[data-day="${i}"]`);
+  if (tab) tab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ───── Modal ───── */
+
+function openModal(kind) {
+  const m = document.getElementById("modal");
+  const c = document.getElementById("modalContent");
+  let html = "";
+
+  if (kind === "hotels") {
+    html = `<h3><em>Six</em> Hotels</h3><div class="modal-sub">Booking & Phone</div>`;
+    HOTELS.forEach(h => {
+      html += `
+        <div class="row">
+          <div>
+            <div class="who">${h.name}</div>
+            <div class="what">Day ${h.day} · ${h.town} · ${h.ref}</div>
+          </div>
+          <a href="tel:${h.tel.replace(/\s/g, '')}">${h.tel}</a>
+        </div>
+      `;
+    });
+  } else if (kind === "contacts") {
+    html = `<h3>Phones</h3><div class="modal-sub">Tap to call</div>`;
+    CONTACTS.forEach(c => {
+      html += `
+        <div class="row">
+          <div>
+            <div class="who">${c.who}</div>
+            <div class="what">${c.what}</div>
+          </div>
+          <a href="tel:${c.tel.replace(/\s/g, '')}">${c.tel}</a>
+        </div>
+      `;
+    });
+  } else if (kind === "fuel") {
+    html = `<h3>Fuel <em>Plan</em></h3><div class="modal-sub">Porsche 992 GTS · Super E5 97 RON</div>`;
+    FUEL.forEach(f => {
+      html += `
+        <div class="row">
+          <div>
+            <div class="who">${f.day}</div>
+            <div class="what"><b>${f.what}</b><br>${f.note}</div>
+          </div>
+        </div>
+      `;
+    });
+  } else if (kind === "refs") {
+    html = `<h3>Booking <em>Refs</em></h3><div class="modal-sub">Confirmation numbers</div>`;
+    REFS.forEach(r => {
+      html += `
+        <div class="row">
+          <div>
+            <div class="who">${r.who}</div>
+            <div class="what">${r.what}</div>
+          </div>
+          <span class="what" style="font-weight:700;color:var(--ink);font-size:11px;letter-spacing:-0.02em;">${r.tel}</span>
+        </div>
+      `;
+    });
+  }
+
+  html += `<button class="modal-close" onclick="closeModal()">Close</button>`;
+  c.innerHTML = html;
+  m.classList.add("open");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("open");
+}
+
+/* ───── Boot ───── */
+renderTabs();
+renderDays();
+
+// If today is a trip day, jump to it
+const todayIdx = findTodayIndex();
+if (todayIdx > 0) selectDay(todayIdx);
+</script>
+</body>
+</html>
