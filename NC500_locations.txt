@@ -1,0 +1,86 @@
+NC500 · Surtees — Locations by Day
+====================================
+
+DAY 1 · Sunday 24 May · Whitley Bay → Inverness (~250 mi · 4 hrs)
+------------------------------------------------------------------
+  Fill up — Whitley Bay             55.1240, -1.5017
+  Inverness Airport (pickup)        57.5431, -4.0506
+  Glen Mhor Hotel (tonight)         57.4741, -4.2264
+  Uile-bheist Brewery & Distillery  57.4717, -4.2197
+
+  Alt route (Lecht loop, +1.5 hrs):
+    Whitley Bay                     55.1240, -1.5017
+    Aviemore                        57.1938, -3.8287
+    Tomintoul                       57.2519, -3.3793
+    Lecht summit                    57.1819, -3.2469
+    Cockbridge                      57.1700, -3.2192
+    Inverness Airport               57.5431, -4.0506
+
+
+DAY 2 · Monday 25 May · Inverness → Torridon (~68 mi · 2 hrs)
+--------------------------------------------------------------
+  Shell V-Power, Old Perth Rd       57.4729, -4.1981
+  Rogie Falls                       57.5878, -4.6131
+  The Torridon (hotel)              57.5289, -5.5281
+
+
+DAY 3 · Tuesday 26 May · Bealach na Bà → Gairloch (~90 mi · 3.5 hrs)
+----------------------------------------------------------------------
+  Bealach na Bà — summit            57.4120, -5.7017
+  Applecross — village + beach      57.4339, -5.8158
+  Shieldaig Bar — Tigh an Eilean    57.5181, -5.6519
+  Gairloch Petrol Station           57.7297, -5.6822
+  Gairloch Highland Lodge (hotel)   57.7097, -5.6755
+  The Old Inn (dinner)              57.7127, -5.6765
+
+
+DAY 4 · Wednesday 27 May · Inverewe · Ullapool → Kylesku (~85 mi · 3 hrs)
+--------------------------------------------------------------------------
+  Inverewe Garden — NTS             57.7757, -5.6025
+  Ullapool — lunch                  57.8956, -5.1622
+  Jet Station — Garve Rd IV26 2SY   57.8972, -5.1537
+  Stac Pollaidh viewpoint           58.0589, -5.2031
+  Knockan Crag                      58.0367, -4.9933
+  Kylesku Hotel (hotel)             58.2572, -5.0183
+
+
+DAY 5 · Thursday 28 May · Assynt · Durness → Tongue (~95 mi · 4 hrs)
+---------------------------------------------------------------------
+  Wailing Widow Falls               58.2367, -5.0192
+  Ardvreck Castle, Loch Assynt      58.1700, -4.9833
+  Scourie Petrol                    58.3506, -5.1567
+  Smoo Cave — Durness               58.5642, -4.7194
+  Sango Bay — Durness               58.5688, -4.7384
+  Durness 24hr card pump            58.5658, -4.7475
+  Tongue Hotel (hotel)              58.4769, -4.4176
+
+
+DAY 6 · Friday 29 May · North Coast · Dunrobin → Dornoch (~90 mi · 3 hrs)
+--------------------------------------------------------------------------
+  Tongue Petrol Station             58.4769, -4.4131
+  Kyle of Tongue causeway           58.4924, -4.4421
+  Farr Bay — Bettyhill              58.5355, -4.2199
+  Dunrobin Castle                   57.9858, -3.9474
+  Dornoch Station Hotel (hotel)     57.8813, -4.0226
+
+
+DAY 7 · Saturday 30 May · Chanonry → Whitley Bay (morning + ~250 mi)
+---------------------------------------------------------------------
+  Chanonry Point — Dolphins         57.5741, -4.0918
+  Inverness Airport (drop-off)      57.5431, -4.0506
+  Inverness — fill up               57.4729, -4.1981
+  Lecht Pass summit (optional)      57.1819, -3.2469
+  Whitley Bay                       55.1240, -1.5017
+
+  Direct home route:
+    Inverness Airport               57.5431, -4.0506
+    Whitley Bay                     55.1240, -1.5017
+
+  Via Lecht route (+1.5–2 hrs):
+    Inverness Airport               57.5431, -4.0506
+    Aviemore                        57.1938, -3.8287
+    Grantown-on-Spey                57.3295, -3.6104
+    Tomintoul                       57.2519, -3.3793
+    Lecht summit                    57.1819, -3.2469
+    Cockbridge                      57.1700, -3.2192
+    Whitley Bay                     55.1240, -1.5017
