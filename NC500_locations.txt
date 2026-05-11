@@ -51,8 +51,8 @@ DAY 5 · Thursday 28 May · Assynt · Durness → Tongue (~95 mi · 4 hrs)
   Allt Chranaidh Waterfall          58.2197, -4.9938
   Ardvreck Castle, Loch Assynt      58.1660, -4.9887
   Scourie Petrol                    58.3506, -5.1567
-  Smoo Cave — Durness               58.5642, -4.7194
   Sango Bay — Durness               58.5688, -4.7384
+  Smoo Cave — Durness               58.5642, -4.7194
   Durness 24hr card pump            58.5658, -4.7475
   Tongue Hotel (hotel)              58.4769, -4.4176
 
