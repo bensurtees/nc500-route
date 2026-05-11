@@ -61,7 +61,7 @@ DAY 6 · Friday 29 May · North Coast · Dunrobin → Dornoch (~90 mi · 3 hrs)
 --------------------------------------------------------------------------
   Tongue Petrol Station             58.4769, -4.4131
   Kyle of Tongue causeway           58.4924, -4.4421
-  Farr Bay — Bettyhill              58.5355, -4.2199
+  Farr Bay — Bettyhill              58.5304, -4.2250
   Dunrobin Castle                   57.9858, -3.9474
   Dornoch Station Hotel (hotel)     57.8813, -4.0226
 
